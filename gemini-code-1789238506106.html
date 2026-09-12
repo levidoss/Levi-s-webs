@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <title>LEVI’S WEBS // Web Design & Development Studio — Erode</title>
+  <meta name="description" content="Levi’s Webs builds high-performance, responsive websites in Erode, Tamil Nadu for businesses, brands, and creators worldwide.">
+  
+  <link rel="canonical" href="https://leviswebs.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://leviswebs.com/">
+  <meta property="og:title" content="LEVI’S WEBS // We Build Webs Differently">
+  <meta property="og:description" content="Custom modern websites, fast mobile performance, and direct WhatsApp conversions. Based in Erode.">
+  <meta property="og:image" content="https://leviswebs.com/og-preview.jpg">
+
+  <!-- Security Hardening -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Google Fonts: Syne, Outfit, Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            void: '#03070E',
+            obsidian: '#090F1B',
+            goldbeam: '#E2B859',
+            emeraldaccent: '#10B981',
+            electricice: '#38BDF8',
+            borderline: 'rgba(226, 184, 89, 0.16)'
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      touch-action: pan-y;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #03070E;
+      color: #E2E8F0;
+    }
+
+    * {
+      touch-action: pan-y;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Lock form font-sizes to exterminate iOS Safari auto-zooming */
+    input, textarea, select {
+      font-size: 16px !important;
+    }
+
+    /* Fixed 3D Canvas Background */
+    #threejs-canvas-host {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* PC Fluid Hero Typography */
+    .hero-title-pc {
+      font-size: clamp(5.2rem, 8vw + 0.5rem, 8.8rem);
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+    }
+
+    /* PC Fluid Gutters */
+    .fluid-padding-pc {
+      padding-inline: clamp(2rem, 5vw, 6.5rem);
+    }
+
+    .target-offset {
+      scroll-margin-top: 96px;
+    }
+
+    /* Scroll Reveal Transition */
+    .reveal-node {
+      opacity: 0;
+      transform: translate3d(0, 28px, 0);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal-node.revealed {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* PC Hover Elevation */
+    .hover-card-pc {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      will-change: transform;
+    }
+    @media (hover: hover) {
+      .hover-card-pc:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 36px -12px rgba(226, 184, 89, 0.2);
+        border-color: rgba(226, 184, 89, 0.5);
+      }
+    }
+
+    .bg-grid-ambient {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(226, 184, 89, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 184, 89, 0.025) 1px, transparent 1px);
+    }
+
+    /* Hide WebKit scrollbars on mobile app segments */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen font-sans selection:bg-goldbeam selection:text-void bg-grid-ambient">
+
+  <!-- Interactive 3D Background Canvas -->
+  <div id="threejs-canvas-host" aria-hidden="true"></div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. PC NAVIGATION BAR (Active only on Desktop md:flex)                      -->
+  <!-- ========================================================================= -->
+  <header class="hidden md:block fixed top-0 left-0 right-0 z-40 bg-void/85 backdrop-blur-xl border-b border-borderline">
+    <div class="max-w-[1700px] mx-auto fluid-padding-pc h-20 flex items-center justify-between">
+      
+      <!-- Studio Identity -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 border border-goldbeam/40 bg-obsidian rounded-xl flex items-center justify-center shadow-md group-hover:border-goldbeam transition-colors">
+          <span class="font-display font-black text-goldbeam text-base">LW</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-black text-base tracking-wider uppercase text-white group-hover:text-goldbeam transition-colors">LEVI’S WEBS</span>
+          <span class="font-mono text-[9px] tracking-widest text-slate-400 uppercase">Erode, Tamil Nadu</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="flex items-center gap-7 font-mono text-xs uppercase tracking-widest text-slate-400">
+        <a href="#home" class="hover:text-goldbeam transition-colors">Home</a>
+        <a href="#about" class="hover:text-goldbeam transition-colors">About</a>
+        <a href="#services" class="hover:text-goldbeam transition-colors">Services</a>
+        <a href="#pricing" class="hover:text-goldbeam transition-colors">Pricing</a>
+        <a href="#works" class="hover:text-goldbeam transition-colors">Our Work</a>
+        <a href="#reviews" class="hover:text-goldbeam transition-colors">Reviews</a>
+      </nav>
+
+      <!-- Desktop Utility & Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Sound Effect Toggle Button -->
+        <button id="soundToggleBtnPC" type="button" aria-label="Toggle Sound" class="sound-toggle-btn w-11 h-11 rounded-xl flex items-center justify-center border border-borderline bg-obsidian text-goldbeam hover:border-goldbeam transition-colors cursor-pointer select-none">
+          <span class="sound-icon-wrapper flex items-center justify-center pointer-events-none">
+            <svg class="svgVolumeOn w-4 h-4 text-goldbeam" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <svg class="svgVolumeOff w-4 h-4 hidden text-slate-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Instagram Link with Official SVG Logo -->
+        <a href="https://instagram.com/levi.web_dev" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" class="w-11 h-11 rounded-xl flex items-center justify-center border border-borderline bg-obsidian text-slate-300 hover:text-goldbeam hover:border-goldbeam transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+
+        <!-- Direct WhatsApp Shortcut -->
+        <a href="https://wa.me/918438615726?text=Hello%20Levi's%20Webs,%20I%20want%20to%20build%20a%20website" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Us" class="w-11 h-11 rounded-xl flex items-center justify-center border border-borderline bg-obsidian text-emeraldaccent hover:border-emeraldaccent transition-colors">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+        </a>
+
+        <!-- Desktop Action Button -->
+        <a href="#booking" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-goldbeam text-void font-display font-bold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-md">
+          <span>Start Project</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. MOBILE APP TOP HEADER (Active only on Mobile screens < md)             -->
+  <!-- ========================================================================= -->
+  <header class="md:hidden fixed top-0 left-0 right-0 z-40 bg-void/90 backdrop-blur-xl border-b border-borderline px-4 h-16 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-2.5">
+      <div class="w-8 h-8 border border-goldbeam/40 bg-obsidian rounded-lg flex items-center justify-center shadow-md">
+        <span class="font-display font-black text-goldbeam text-sm">LW</span>
+      </div>
+      <div>
+        <span class="font-display font-black text-sm tracking-wider uppercase text-white block leading-none">LEVI’S WEBS</span>
+        <span class="font-mono text-[8px] text-emeraldaccent block uppercase mt-0.5">Erode, TN</span>
+      </div>
+    </a>
+
+    <div class="flex items-center gap-2">
+      <!-- Mobile Sound Toggle -->
+      <button id="soundToggleBtnMobile" type="button" aria-label="Toggle Sound" class="sound-toggle-btn w-9 h-9 rounded-lg flex items-center justify-center border border-borderline bg-obsidian text-goldbeam">
+        <span class="sound-icon-wrapper flex items-center justify-center pointer-events-none">
+          <svg class="svgVolumeOn w-3.5 h-3.5 text-goldbeam" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          <svg class="svgVolumeOff w-3.5 h-3.5 hidden text-slate-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </span>
+      </button>
+
+      <!-- Direct Mobile WhatsApp Pill -->
+      <a href="https://wa.me/918438615726?text=Hello%20Levi's%20Webs,%20I'm%20ready%20to%20start%20my%20website" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-emeraldaccent text-void font-display font-bold text-[11px] uppercase flex items-center gap-1.5 shadow-md">
+        <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 3. MOBILE NATIVE BOTTOM APP BAR (Docked, Clean, Ergonomic)                -->
+  <!-- ========================================================================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-2xl border-t border-borderline px-2 py-1.5 flex items-center justify-around shadow-2xl">
+    <a href="#home" class="flex flex-col items-center gap-1 py-1 px-2 text-slate-400 hover:text-goldbeam active:text-goldbeam">
+      <i data-lucide="home" class="w-4 h-4"></i>
+      <span class="font-mono text-[9px] uppercase tracking-wider">Home</span>
+    </a>
+    <a href="#about" class="flex flex-col items-center gap-1 py-1 px-2 text-slate-400 hover:text-goldbeam active:text-goldbeam">
+      <i data-lucide="info" class="w-4 h-4"></i>
+      <span class="font-mono text-[9px] uppercase tracking-wider">About</span>
+    </a>
+    <a href="#services" class="flex flex-col items-center gap-1 py-1 px-2 text-slate-400 hover:text-goldbeam active:text-goldbeam">
+      <i data-lucide="layout" class="w-4 h-4"></i>
+      <span class="font-mono text-[9px] uppercase tracking-wider">Services</span>
+    </a>
+    <a href="#pricing" class="flex flex-col items-center gap-1 py-1 px-2 text-slate-400 hover:text-goldbeam active:text-goldbeam">
+      <i data-lucide="tag" class="w-4 h-4"></i>
+      <span class="font-mono text-[9px] uppercase tracking-wider">Pricing</span>
+    </a>
+    <a href="#works" class="flex flex-col items-center gap-1 py-1 px-2 text-slate-400 hover:text-goldbeam active:text-goldbeam">
+      <i data-lucide="folder-check" class="w-4 h-4"></i>
+      <span class="font-mono text-[9px] uppercase tracking-wider">Works</span>
+    </a>
+    <a href="#booking" class="flex flex-col items-center gap-1 py-1 px-2 text-goldbeam font-bold">
+      <i data-lucide="calendar" class="w-4 h-4"></i>
+      <span class="font-mono text-[9px] uppercase tracking-wider">Book</span>
+    </a>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN VIEWPORT CONTENT (Distinct PC vs Mobile Layout Architecture)         -->
+  <!-- ========================================================================= -->
+  <main class="relative z-10 w-full pb-20 md:pb-0">
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 1: HOME                                                       -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="home" class="target-offset min-h-screen">
+      
+      <!-- DESKTOP PC HERO (100% Restored Original Monolith Layout) -->
+      <div class="hidden md:flex min-h-screen pt-36 pb-16 flex-col justify-between fluid-padding-pc max-w-[1700px] mx-auto w-full">
+        <div>
+          <!-- Regional Tag -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-obsidian/90 border border-borderline rounded-full mb-8 reveal-node shadow-md">
+            <span class="w-2.5 h-2.5 rounded-full bg-emeraldaccent animate-pulse"></span>
+            <span class="font-mono text-xs uppercase tracking-wider text-slate-300">Based in Erode • Serving Businesses Globally</span>
+          </div>
+
+          <!-- Restored Desktop Clean Title -->
+          <h1 class="hero-title-pc font-display font-black uppercase text-white text-balance reveal-node">
+            we build <span class="text-goldbeam">webs</span> <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-goldbeam">differently.</span>
+          </h1>
+
+          <!-- Desktop Subheading & Action Split -->
+          <div class="grid grid-cols-12 gap-8 mt-12 pt-8 border-t border-borderline reveal-node items-start">
+            <p class="col-span-7 font-sans text-xl text-slate-300 leading-relaxed text-balance">
+              <strong class="text-white font-semibold">Levi’s Webs</strong> creates custom, modern websites that help your business look professional and gain customer trust. Every website is built to load instantly on phones, look great, and make it easy for customers to message you directly on WhatsApp.
+            </p>
+            <div class="col-span-5 flex items-center justify-end gap-4">
+              <a href="#booking" class="px-7 py-4 rounded-xl bg-goldbeam text-void font-display font-bold uppercase tracking-wider text-xs hover:bg-white transition-all shadow-xl flex items-center justify-center gap-2 min-h-[44px]">
+                <span>Book Discovery Call</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="https://wa.me/918438615726?text=Hi%20Levi's%20Webs,%20can%20we%20discuss%20pricing%20for%20a%20website?" target="_blank" rel="noopener noreferrer" class="px-6 py-4 rounded-xl bg-obsidian border border-emeraldaccent text-emeraldaccent font-mono text-xs uppercase tracking-widest hover:bg-emeraldaccent hover:text-void transition-all flex items-center justify-center gap-2 min-h-[44px]">
+                <i data-lucide="message-square" class="w-4 h-4"></i>
+                <span>WhatsApp Direct</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Quick Metrics Grid -->
+        <div class="w-full pt-14 mt-14 border-t border-borderline font-mono text-xs grid grid-cols-4 gap-4 reveal-node">
+          <div class="p-4 rounded-xl border border-borderline bg-obsidian/75 backdrop-blur-sm">
+            <span class="text-slate-400 block uppercase text-[10px]">Studio Location</span>
+            <span class="text-white font-bold text-base mt-1 block">Erode, Tamil Nadu</span>
+          </div>
+          <div class="p-4 rounded-xl border border-borderline bg-obsidian/75 backdrop-blur-sm">
+            <span class="text-slate-400 block uppercase text-[10px]">Mobile Load Speed</span>
+            <span class="text-emeraldaccent font-bold text-base mt-1 block">Under 1.2 Seconds</span>
+          </div>
+          <div class="p-4 rounded-xl border border-borderline bg-obsidian/75 backdrop-blur-sm">
+            <span class="text-slate-400 block uppercase text-[10px]">Starting Package</span>
+            <span class="text-goldbeam font-bold text-base mt-1 block">₹7,000 INR</span>
+          </div>
+          <div class="p-4 rounded-xl border border-borderline bg-obsidian/75 backdrop-blur-sm">
+            <span class="text-slate-400 block uppercase text-[10px]">Website Ownership</span>
+            <span class="text-white font-bold text-base mt-1 block">100% Owned by You</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILE NATIVE HERO (Custom Built for Mobile Screens, No Shrunk Scale) -->
+      <div class="md:hidden min-h-[88vh] pt-24 pb-8 px-4 flex flex-col justify-between">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-obsidian/90 border border-borderline rounded-full shadow-sm mb-4">
+            <span class="w-2 h-2 rounded-full bg-emeraldaccent animate-pulse"></span>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-300">Erode • Web Engineering</span>
+          </div>
+
+          <!-- Bespoke Mobile Headings (Tight line-height, bold visual punch) -->
+          <h1 class="font-display font-black uppercase text-3xl sm:text-4xl text-white tracking-tight leading-[1.05]">
+            we build <br>
+            <span class="text-goldbeam">webs</span> <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-goldbeam">differently.</span>
+          </h1>
+
+          <p class="font-sans text-sm text-slate-300 mt-3 leading-normal">
+            Custom websites engineered in Erode. Fast loading, modern design, and direct WhatsApp customer conversion.
+          </p>
+
+          <!-- Mobile App Action Buttons -->
+          <div class="flex flex-col gap-2.5 mt-5">
+            <a href="#booking" class="w-full py-3.5 rounded-xl bg-goldbeam text-void font-display font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 shadow-lg min-h-[44px]">
+              <span>Book Discovery Call</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="https://wa.me/918438615726?text=Hello%20Levi's%20Webs,%20I'm%20interested%20in%20a%20website" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-obsidian border border-emeraldaccent text-emeraldaccent font-mono text-xs uppercase flex items-center justify-center gap-2 min-h-[44px]">
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+              <span>WhatsApp Us Directly</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile Quick Stats: Compact 2x2 App Grid -->
+        <div class="grid grid-cols-2 gap-2 mt-6 pt-4 border-t border-borderline/60">
+          <div class="p-2.5 rounded-xl bg-obsidian/80 border border-borderline">
+            <span class="text-slate-400 font-mono text-[9px] uppercase block">Location</span>
+            <span class="text-white font-bold text-xs block mt-0.5">Erode, TN</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-obsidian/80 border border-borderline">
+            <span class="text-slate-400 font-mono text-[9px] uppercase block">Speed</span>
+            <span class="text-emeraldaccent font-bold text-xs block mt-0.5">&lt; 1.2s Load</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-obsidian/80 border border-borderline">
+            <span class="text-slate-400 font-mono text-[9px] uppercase block">Starting</span>
+            <span class="text-goldbeam font-bold text-xs block mt-0.5">₹7,000 INR</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-obsidian/80 border border-borderline">
+            <span class="text-slate-400 font-mono text-[9px] uppercase block">Code Access</span>
+            <span class="text-white font-bold text-xs block mt-0.5">100% Owned</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 2: ABOUT US                                                   -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="about" class="target-offset py-16 md:py-28 border-y border-borderline bg-obsidian/50 backdrop-blur-md px-4 md:fluid-padding-pc">
+      <div class="max-w-[1700px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+        
+        <div class="md:col-span-5 reveal-node">
+          <span class="font-mono text-xs text-goldbeam uppercase tracking-widest block mb-2">// 02: About Levi's Webs</span>
+          <h2 class="font-display font-black text-2xl sm:text-3xl md:text-5xl uppercase tracking-tight text-white leading-tight">
+            we take your business to the next stage .
+          </h2>
+          <p class="font-mono text-xs text-emeraldaccent mt-3 uppercase tracking-wider">
+            Hands-on Web Design from Erode • Built for Real Results
+          </p>
+        </div>
+
+        <div class="md:col-span-7 space-y-4 md:space-y-6 font-sans text-sm md:text-lg text-slate-300 leading-relaxed reveal-node">
+          <p>
+            When potential clients hear about your business, the first thing they do is look you up on their phones. If your website looks outdated or takes too long to load, they will quickly move on to someone else.
+          </p>
+          <p>
+            At <strong class="text-white font-semibold">Levi’s Webs</strong>, we handle the entire process for you: planning your pages, creating modern layouts, and making sure everything works smoothly. You don't have to worry about any technical details — we deliver a complete, fast website that brings in genuine customer inquiries.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 font-mono text-xs">
+            <div class="p-3.5 rounded-xl border border-borderline bg-void">
+              <span class="text-goldbeam font-bold block mb-1">01 // CLEAR ADVICE</span>
+              <span class="text-slate-400 text-[11px] leading-tight block">Simple updates, honest advice, and zero confusing tech words.</span>
+            </div>
+            <div class="p-3.5 rounded-xl border border-borderline bg-void">
+              <span class="text-emeraldaccent font-bold block mb-1">02 // PERFECT ON MOBILE</span>
+              <span class="text-slate-400 text-[11px] leading-tight block">Your site fits every mobile screen cleanly with clear text.</span>
+            </div>
+            <div class="p-3.5 rounded-xl border border-borderline bg-void">
+              <span class="text-electricice font-bold block mb-1">03 // EASY CHAT</span>
+              <span class="text-slate-400 text-[11px] leading-tight block">Visitors can tap to message you directly on WhatsApp.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 3: SERVICES                                                   -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="services" class="target-offset py-16 md:py-28 px-4 md:fluid-padding-pc bg-void">
+      <div class="max-w-[1700px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-4 border-b border-borderline pb-4 reveal-node">
+          <div>
+            <span class="font-mono text-xs text-goldbeam uppercase tracking-widest block mb-1">// 03: What We Build For You</span>
+            <h2 class="font-display font-black text-2xl md:text-6xl uppercase tracking-tight text-white">Our Services</h2>
+          </div>
+          <p class="font-mono text-xs text-slate-400 max-w-sm uppercase">CUSTOM WEBSITES // ONLINE CATALOGS // FAST LANDING PAGES</p>
+        </div>
+
+        <!-- Restored PC 3-Column Grid / Stacked App List on Mobile -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-obsidian hover-card-pc flex flex-col justify-between reveal-node">
+            <div>
+              <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-goldbeam/10 border border-goldbeam/30 flex items-center justify-center text-goldbeam mb-4 md:mb-6">
+                <i data-lucide="layout" class="w-5 h-5 md:w-6 md:h-6"></i>
+              </div>
+              <h3 class="font-display font-bold text-lg md:text-2xl uppercase text-white mb-2 md:mb-3">Business Websites</h3>
+              <p class="text-slate-300 text-xs md:text-base leading-relaxed mb-4 md:mb-6">
+                Full-featured websites for shops, textile brands, clinics, and companies wanting to clearly explain their services and gain new customer trust.
+              </p>
+            </div>
+            <div class="pt-4 md:pt-6 border-t border-borderline/60 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Modern Code</span>
+              <span class="text-goldbeam font-bold">Fast & Secure</span>
+            </div>
+          </div>
+
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-obsidian hover-card-pc flex flex-col justify-between reveal-node">
+            <div>
+              <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-emeraldaccent/10 border border-emeraldaccent/30 flex items-center justify-center text-emeraldaccent mb-4 md:mb-6">
+                <i data-lucide="zap" class="w-5 h-5 md:w-6 md:h-6"></i>
+              </div>
+              <h3 class="font-display font-bold text-lg md:text-2xl uppercase text-white mb-2 md:mb-3">Ad Landing Pages</h3>
+              <p class="text-slate-300 text-xs md:text-base leading-relaxed mb-4 md:mb-6">
+                Dedicated single-page websites made for your Instagram and Google ads. Designed with clear offers to encourage visitors to message or call you.
+              </p>
+            </div>
+            <div class="pt-4 md:pt-6 border-t border-borderline/60 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Lead Focused</span>
+              <span class="text-emeraldaccent font-bold">More Inquiries</span>
+            </div>
+          </div>
+
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-obsidian hover-card-pc flex flex-col justify-between reveal-node">
+            <div>
+              <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-electricice/10 border border-electricice/30 flex items-center justify-center text-electricice mb-4 md:mb-6">
+                <i data-lucide="shopping-bag" class="w-5 h-5 md:w-6 md:h-6"></i>
+              </div>
+              <h3 class="font-display font-bold text-lg md:text-2xl uppercase text-white mb-2 md:mb-3">E-Commerce & Portals</h3>
+              <p class="text-slate-300 text-xs md:text-base leading-relaxed mb-4 md:mb-6">
+                Product catalog websites with cart systems and UPI payment setups so your customers can browse and order items easily from anywhere.
+              </p>
+            </div>
+            <div class="pt-4 md:pt-6 border-t border-borderline/60 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>UPI & Card Payments</span>
+              <span class="text-electricice font-bold">Simple Ordering</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 4: PRICING (Desktop 4-Columns / Clean Mobile Cards)            -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="pricing" class="target-offset py-16 md:py-28 px-4 md:fluid-padding-pc bg-obsidian/60 border-y border-borderline">
+      <div class="max-w-[1700px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-4 border-b border-borderline pb-4 reveal-node">
+          <div>
+            <span class="font-mono text-xs text-goldbeam uppercase tracking-widest block mb-1">// 04: Honest Investment</span>
+            <h2 class="font-display font-black text-2xl md:text-6xl uppercase tracking-tight text-white">Pricing Plans</h2>
+          </div>
+          <p class="font-mono text-xs text-slate-400 max-w-sm uppercase">FIXED PRICES // NO UNEXPECTED CHARGES // COMPLETE CODE OWNERSHIP</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          
+          <!-- Basic Plan: 7K -->
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-void hover-card-pc flex flex-col justify-between reveal-node">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-xs text-slate-400 uppercase">TIER 01</span>
+                <span class="px-2.5 py-0.5 rounded-full border border-borderline font-mono text-[10px] text-slate-300 uppercase">Quick Start</span>
+              </div>
+              <h3 class="font-display font-black text-xl md:text-2xl uppercase text-white mb-1 md:mb-2">Basic</h3>
+              <div class="font-mono text-2xl md:text-3xl font-bold text-goldbeam mb-4 md:mb-5">₹7,000</div>
+              <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
+                Ideal for individuals, freelance professionals, or small businesses wanting a clean, single-page website.
+              </p>
+              <ul class="space-y-2 md:space-y-3 font-mono text-xs text-slate-300 mb-6 md:mb-8">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> 1 Landing Page</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Mobile Optimized</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> WhatsApp Button</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> 4–5 Days Delivery</li>
+              </ul>
+            </div>
+            <a href="#booking" onclick="setBookingTier('Basic (₹7,000)')" class="w-full py-3.5 rounded-xl border border-borderline bg-obsidian text-center font-display text-xs uppercase font-bold text-white hover:bg-goldbeam hover:text-void transition-all min-h-[44px] flex items-center justify-center">
+              Choose Basic
+            </a>
+          </div>
+
+          <!-- Intermediate Plan: 12K (Recommended) -->
+          <div class="p-5 md:p-8 rounded-2xl border-2 border-goldbeam bg-void hover-card-pc relative flex flex-col justify-between reveal-node shadow-2xl">
+            <div class="absolute -top-3 right-4 md:right-6 bg-goldbeam text-void font-mono text-[9px] md:text-[10px] font-black px-2.5 md:px-3 py-1 rounded-full uppercase tracking-wider">
+              Most Popular
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-xs text-goldbeam uppercase">TIER 02</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-goldbeam/10 text-goldbeam font-mono text-[10px] uppercase">Best Value</span>
+              </div>
+              <h3 class="font-display font-black text-xl md:text-2xl uppercase text-white mb-1 md:mb-2">Intermediate</h3>
+              <div class="font-mono text-2xl md:text-3xl font-bold text-goldbeam mb-4 md:mb-5">₹12,000</div>
+              <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
+                Recommended for businesses needing multiple pages to showcase their products, services, and company background.
+              </p>
+              <ul class="space-y-2 md:space-y-3 font-mono text-xs text-slate-300 mb-6 md:mb-8">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> 4 to 5 Pages</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Scroll Animations</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Booking & Lead Form</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Google Search (SEO)</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> 7–9 Days Delivery</li>
+              </ul>
+            </div>
+            <a href="#booking" onclick="setBookingTier('Intermediate (₹12,000)')" class="w-full py-3.5 rounded-xl bg-goldbeam text-void text-center font-display text-xs uppercase font-bold hover:bg-white transition-all shadow-lg min-h-[44px] flex items-center justify-center">
+              Choose Intermediate
+            </a>
+          </div>
+
+          <!-- Advanced Plan: 15K -->
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-void hover-card-pc flex flex-col justify-between reveal-node">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-xs text-emeraldaccent uppercase">TIER 03</span>
+                <span class="px-2.5 py-0.5 rounded-full border border-borderline font-mono text-[10px] text-emeraldaccent uppercase">Full Experience</span>
+              </div>
+              <h3 class="font-display font-black text-xl md:text-2xl uppercase text-white mb-1 md:mb-2">Advanced</h3>
+              <div class="font-mono text-2xl md:text-3xl font-bold text-goldbeam mb-4 md:mb-5">₹15,000</div>
+              <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
+                For established brands looking for an impressive design, custom animations, and interactive elements.
+              </p>
+              <ul class="space-y-2 md:space-y-3 font-mono text-xs text-slate-300 mb-6 md:mb-8">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Custom Pages</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> 3D Effects</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Content Management</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Priority Revisions</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> 10–12 Days Delivery</li>
+              </ul>
+            </div>
+            <a href="#booking" onclick="setBookingTier('Advanced (₹15,000)')" class="w-full py-3.5 rounded-xl border border-borderline bg-obsidian text-center font-display text-xs uppercase font-bold text-white hover:border-emeraldaccent hover:text-emeraldaccent transition-all min-h-[44px] flex items-center justify-center">
+              Choose Advanced
+            </a>
+          </div>
+
+          <!-- Custom Plan: 12K - 1.2L -->
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-void hover-card-pc flex flex-col justify-between reveal-node">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-xs text-electricice uppercase">TIER 04</span>
+                <span class="px-2.5 py-0.5 rounded-full border border-borderline font-mono text-[10px] text-electricice uppercase">Tailored</span>
+              </div>
+              <h3 class="font-display font-black text-xl md:text-2xl uppercase text-white mb-1 md:mb-2">Custom</h3>
+              <div class="font-mono text-2xl md:text-3xl font-bold text-electricice mb-4 md:mb-5">₹12K - 1.2L</div>
+              <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
+                For online stores, web portals, customer login systems, and larger software projects.
+              </p>
+              <ul class="space-y-2 md:space-y-3 font-mono text-xs text-slate-300 mb-6 md:mb-8">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Full E-Commerce / App</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Razorpay / UPI Systems</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> User Database Setup</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emeraldaccent shrink-0"></i> Custom Timetable</li>
+              </ul>
+            </div>
+            <a href="#booking" onclick="setBookingTier('Custom Enterprise (₹12K - ₹1.2L)')" class="w-full py-3.5 rounded-xl border border-borderline bg-obsidian text-center font-display text-xs uppercase font-bold text-electricice hover:bg-electricice hover:text-void transition-all min-h-[44px] flex items-center justify-center">
+              Request Custom Quote
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 5: PREVIOUS WORKS                                             -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="works" class="target-offset py-16 md:py-28 px-4 md:fluid-padding-pc bg-void">
+      <div class="max-w-[1700px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-4 border-b border-borderline pb-4 reveal-node">
+          <div>
+            <span class="font-mono text-xs text-emeraldaccent uppercase tracking-widest block mb-1">// 05: Real Examples</span>
+            <h2 class="font-display font-black text-2xl md:text-6xl uppercase tracking-tight text-white">Previous Works</h2>
+          </div>
+          <p class="font-mono text-xs text-slate-400 max-w-sm uppercase">FAST LOADING // TESTED ON ALL SMARTPHONES</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          
+          <!-- Work 1: Advocate -->
+          <div class="rounded-2xl border border-borderline bg-obsidian p-4 md:p-6 hover-card-pc reveal-node flex flex-col justify-between">
+            <div>
+              <a href="https://levidoss.github.io/advocate-01/" target="_blank" rel="noopener noreferrer" class="block aspect-[16/10] rounded-xl bg-void border border-borderline relative overflow-hidden group">
+                <img 
+                  src="Screenshot_2026-09-12_18-55-36.jpg" 
+                  alt="A. Raman Advocate Landing Page" 
+                  onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'500\' viewBox=\'0 0 800 500\'><rect width=\'100%25\' height=\'100%25\' fill=\'%23090F1B\'/><text x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23E2B859\' font-family=\'sans-serif\' font-size=\'28\' font-weight=\'bold\'>A. RAMAN ADVOCATE</text><text x=\'50%25\' y=\'56%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394A3B8\' font-family=\'sans-serif\' font-size=\'16\'>Legal Practice Landing Page</text></svg>';"
+                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                >
+                <span class="absolute top-2.5 left-2.5 font-mono text-[9px] bg-void/90 px-2 py-0.5 rounded border border-borderline text-goldbeam uppercase">Legal Practice</span>
+                <span class="absolute bottom-2.5 right-2.5 font-mono text-[10px] bg-obsidian/95 border border-goldbeam/40 px-2.5 py-1 rounded-lg text-goldbeam flex items-center gap-1 shadow-md">
+                  <span>Live Demo</span>
+                  <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                </span>
+              </a>
+              <div class="pt-4 md:pt-5">
+                <a href="https://levidoss.github.io/advocate-01/" target="_blank" rel="noopener noreferrer" class="hover:text-goldbeam transition-colors inline-block">
+                  <h3 class="font-display font-bold text-base md:text-xl text-white">A. Raman Advocate Portal</h3>
+                </a>
+                <p class="font-sans text-xs md:text-sm text-slate-300 mt-1.5 leading-relaxed">
+                  High-converting legal counsel landing page designed with confident typography and WhatsApp consultation booking.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-4 mt-4 border-t border-borderline/60 font-mono text-xs text-slate-400">
+              <span>Advocate Landing Page</span>
+              <a href="https://levidoss.github.io/advocate-01/" target="_blank" rel="noopener noreferrer" class="text-emeraldaccent font-bold hover:underline flex items-center gap-1">
+                <span>Visit Site</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Work 2: Skincare -->
+          <div class="rounded-2xl border border-borderline bg-obsidian p-4 md:p-6 hover-card-pc reveal-node flex flex-col justify-between">
+            <div>
+              <a href="https://levidoss.github.io/skincare-02/" target="_blank" rel="noopener noreferrer" class="block aspect-[16/10] rounded-xl bg-void border border-borderline relative overflow-hidden group">
+                <img 
+                  src="Screenshot_2026-09-12_18-57-20.jpg" 
+                  alt="Manjal Botanical Skincare Store" 
+                  onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'500\' viewBox=\'0 0 800 500\'><rect width=\'100%25\' height=\'100%25\' fill=\'%23090F1B\'/><text x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2310B981\' font-family=\'sans-serif\' font-size=\'28\' font-weight=\'bold\'>MANJAL BOTANICALS</text><text x=\'50%25\' y=\'56%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394A3B8\' font-family=\'sans-serif\' font-size=\'16\'>Skincare E-Commerce Store</text></svg>';"
+                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                >
+                <span class="absolute top-2.5 left-2.5 font-mono text-[9px] bg-void/90 px-2 py-0.5 rounded border border-borderline text-emeraldaccent uppercase">D2C Storefront</span>
+                <span class="absolute bottom-2.5 right-2.5 font-mono text-[10px] bg-obsidian/95 border border-emeraldaccent/40 px-2.5 py-1 rounded-lg text-emeraldaccent flex items-center gap-1 shadow-md">
+                  <span>Live Demo</span>
+                  <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                </span>
+              </a>
+              <div class="pt-4 md:pt-5">
+                <a href="https://levidoss.github.io/skincare-02/" target="_blank" rel="noopener noreferrer" class="hover:text-emeraldaccent transition-colors inline-block">
+                  <h3 class="font-display font-bold text-base md:text-xl text-white">Manjal Botanical Skincare</h3>
+                </a>
+                <p class="font-sans text-xs md:text-sm text-slate-300 mt-1.5 leading-relaxed">
+                  Interactive skincare e-commerce storefront with floating product cards, cart drawer, and seamless UPI payments.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-4 mt-4 border-t border-borderline/60 font-mono text-xs text-slate-400">
+              <span>Skincare E-commerce</span>
+              <a href="https://levidoss.github.io/skincare-02/" target="_blank" rel="noopener noreferrer" class="text-emeraldaccent font-bold hover:underline flex items-center gap-1">
+                <span>Visit Site</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Work 3: Photo Studio -->
+          <div class="rounded-2xl border border-borderline bg-obsidian p-4 md:p-6 hover-card-pc reveal-node flex flex-col justify-between">
+            <div>
+              <a href="https://levidoss.github.io/photo-demo-01/" target="_blank" rel="noopener noreferrer" class="block aspect-[16/10] rounded-xl bg-void border border-borderline relative overflow-hidden group">
+                <img 
+                  src="Screenshot_2026-09-12_19-00-05.jpg" 
+                  alt="Atelier Forever Photography" 
+                  onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'500\' viewBox=\'0 0 800 500\'><rect width=\'100%25\' height=\'100%25\' fill=\'%23090F1B\'/><text x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2338BDF8\' font-family=\'sans-serif\' font-size=\'28\' font-weight=\'bold\'>ATELIER FOREVER</text><text x=\'50%25\' y=\'56%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394A3B8\' font-family=\'sans-serif\' font-size=\'16\'>Photostudio Business Page</text></svg>';"
+                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                >
+                <span class="absolute top-2.5 left-2.5 font-mono text-[9px] bg-void/90 px-2 py-0.5 rounded border border-borderline text-electricice uppercase">Creative Studio</span>
+                <span class="absolute bottom-2.5 right-2.5 font-mono text-[10px] bg-obsidian/95 border border-electricice/40 px-2.5 py-1 rounded-lg text-electricice flex items-center gap-1 shadow-md">
+                  <span>Live Demo</span>
+                  <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                </span>
+              </a>
+              <div class="pt-4 md:pt-5">
+                <a href="https://levidoss.github.io/photo-demo-01/" target="_blank" rel="noopener noreferrer" class="hover:text-electricice transition-colors inline-block">
+                  <h3 class="font-display font-bold text-base md:text-xl text-white">Atelier Forever Photography</h3>
+                </a>
+                <p class="font-sans text-xs md:text-sm text-slate-300 mt-1.5 leading-relaxed">
+                  Immersive wedding and portrait photography portfolio designed with atmospheric dark tones and inquiry forms.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-4 mt-4 border-t border-borderline/60 font-mono text-xs text-slate-400">
+              <span>Photostudio Business</span>
+              <a href="https://levidoss.github.io/photo-demo-01/" target="_blank" rel="noopener noreferrer" class="text-electricice font-bold hover:underline flex items-center gap-1">
+                <span>Visit Site</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 6: REVIEWS                                                    -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="reviews" class="target-offset py-16 md:py-28 px-4 md:fluid-padding-pc border-t border-borderline bg-obsidian/40 backdrop-blur-md">
+      <div class="max-w-[1700px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-4 border-b border-borderline pb-4 reveal-node">
+          <div>
+            <span class="font-mono text-xs text-goldbeam uppercase tracking-widest block mb-1">// 06: Client Feedback</span>
+            <h2 class="font-display font-black text-2xl md:text-6xl uppercase tracking-tight text-white">What Clients Say</h2>
+          </div>
+          <p class="font-mono text-xs text-slate-400 max-w-sm uppercase">FEEDBACK FROM REAL BUSINESS OWNERS</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-void hover-card-pc reveal-node flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-1 text-goldbeam mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+              </div>
+              <p class="font-sans text-xs md:text-base text-slate-300 leading-relaxed mb-4 md:mb-6">
+                "We needed a clean website for our textile firm in Erode. Levi’s Webs finished everything in about a week under the ₹12,000 plan. The direct WhatsApp button brought us 3 new trade inquiries in the first few weeks."
+              </p>
+            </div>
+            <div class="pt-4 border-t border-borderline/60 flex items-center justify-between">
+              <div>
+                <div class="font-display font-bold text-white text-xs md:text-sm">K. Senthil Nathan</div>
+                <div class="font-mono text-[10px] md:text-xs text-slate-400">Managing Partner, Erode</div>
+              </div>
+              <span class="font-mono text-[10px] text-goldbeam border border-borderline px-2 py-0.5 rounded">Plan: ₹12K</span>
+            </div>
+          </div>
+
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-void hover-card-pc reveal-node flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-1 text-goldbeam mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+              </div>
+              <p class="font-sans text-xs md:text-base text-slate-300 leading-relaxed mb-4 md:mb-6">
+                "It is very refreshing to work with someone who speaks simply and does not use confusing tech buzzwords. The website is extremely fast on smartphones and looks modern."
+              </p>
+            </div>
+            <div class="pt-4 border-t border-borderline/60 flex items-center justify-between">
+              <div>
+                <div class="font-display font-bold text-white text-xs md:text-sm">Priya Ramanathan</div>
+                <div class="font-mono text-[10px] md:text-xs text-slate-400">Founder, Aura Botanics</div>
+              </div>
+              <span class="font-mono text-[10px] text-emeraldaccent border border-borderline px-2 py-0.5 rounded">Plan: ₹15K</span>
+            </div>
+          </div>
+
+          <div class="p-5 md:p-8 rounded-2xl border border-borderline bg-void hover-card-pc reveal-node flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-1 text-goldbeam mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-goldbeam"></i>
+              </div>
+              <p class="font-sans text-xs md:text-base text-slate-300 leading-relaxed mb-4 md:mb-6">
+                "We went with the ₹7,000 Basic page for our new ad campaign. The site opened instantly on phones and customer questions started coming straight to my WhatsApp without delay. Great value."
+              </p>
+            </div>
+            <div class="pt-4 border-t border-borderline/60 flex items-center justify-between">
+              <div>
+                <div class="font-display font-bold text-white text-xs md:text-sm">Dinesh Kumar</div>
+                <div class="font-mono text-[10px] md:text-xs text-slate-400">Retail Business Owner</div>
+              </div>
+              <span class="font-mono text-[10px] text-electricice border border-borderline px-2 py-0.5 rounded">Plan: ₹7K</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- SECTION 7: BOOKING                                                    -->
+    <!-- --------------------------------------------------------------------- -->
+    <section id="booking" class="target-offset py-16 md:py-28 px-4 md:fluid-padding-pc border-t border-borderline bg-void">
+      <div class="max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+          
+          <!-- Left Column -->
+          <div class="lg:col-span-5 reveal-node">
+            <span class="font-mono text-xs text-goldbeam uppercase tracking-widest block mb-1 md:mb-2">// 07: Start Your Website</span>
+            <h2 class="font-display font-black text-2xl sm:text-3xl md:text-5xl uppercase tracking-tight text-white">Book Your Build.</h2>
+            <p class="font-sans text-slate-300 text-xs md:text-base mt-2 md:mt-4 leading-relaxed">
+              Submitting this form compiles your exact project details and passes them directly to our official WhatsApp line (+91 84386 15726). We respond within 24 hours with a firm timeline.
+            </p>
+
+            <div class="mt-4 md:mt-8 space-y-2.5 font-mono text-xs">
+              <!-- WhatsApp -->
+              <a href="https://wa.me/918438615726?text=Hello%20Levi's%20Webs,%20I'm%20ready%20to%20start%20my%20website" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3.5 rounded-xl bg-obsidian border border-borderline hover:border-emeraldaccent transition-colors min-h-[44px]">
+                <div class="w-8 h-8 rounded-lg bg-emeraldaccent/10 flex items-center justify-center text-emeraldaccent shrink-0">
+                  <i data-lucide="message-square" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <span class="text-white font-bold block text-xs sm:text-sm">Chat on WhatsApp</span>
+                  <span class="text-slate-400 text-[11px]">+91 84386 15726</span>
+                </div>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://instagram.com/levi.web_dev" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3.5 rounded-xl bg-obsidian border border-borderline hover:border-goldbeam transition-colors min-h-[44px]">
+                <div class="w-8 h-8 rounded-lg bg-goldbeam/10 flex items-center justify-center text-goldbeam shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="text-white font-bold block text-xs sm:text-sm">Instagram Profile</span>
+                  <span class="text-slate-400 text-[11px]">@levi.web_dev</span>
+                </div>
+              </a>
+
+              <!-- Location Tag -->
+              <div class="flex items-center gap-3 p-3.5 rounded-xl bg-obsidian border border-borderline text-slate-300">
+                <div class="w-8 h-8 rounded-lg bg-electricice/10 flex items-center justify-center text-electricice shrink-0">
+                  <i data-lucide="map-pin" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <span class="text-white font-bold block text-xs sm:text-sm">Studio Location</span>
+                  <span class="text-slate-400 text-[11px]">Erode, Tamil Nadu, India</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Booking Form with Date Calendar Icon -->
+          <div class="lg:col-span-7 bg-obsidian border border-borderline rounded-2xl p-5 md:p-10 reveal-node shadow-2xl relative">
+            <div class="flex items-center justify-between pb-4 md:pb-5 mb-5 md:mb-6 border-b border-borderline">
+              <span class="font-display font-bold text-white text-base md:text-lg">Send Project Inquiry</span>
+              <span class="font-mono text-[11px] text-emeraldaccent bg-emeraldaccent/10 px-2.5 py-1 rounded-full uppercase">Routed to WhatsApp</span>
+            </div>
+
+            <form id="bookingLeadForm" class="space-y-4 md:space-y-5">
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
+                <div>
+                  <label for="clientFullName" class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Your Name / Business Name *</label>
+                  <input type="text" id="clientFullName" required placeholder="e.g. Senthil Kumar" class="w-full rounded-xl bg-void border border-borderline px-4 py-3.5 text-white focus:outline-none focus:border-goldbeam font-sans text-sm transition-colors">
+                </div>
+                <div>
+                  <label for="clientPhone" class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">WhatsApp or Phone Number *</label>
+                  <input type="tel" id="clientPhone" required placeholder="+91 84386 15726" class="w-full rounded-xl bg-void border border-borderline px-4 py-3.5 text-white focus:outline-none focus:border-goldbeam font-sans text-sm transition-colors">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
+                <div>
+                  <label for="tierSelector" class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Select Your Plan</label>
+                  <select id="tierSelector" class="w-full rounded-xl bg-void border border-borderline px-4 py-3.5 text-white focus:outline-none focus:border-goldbeam font-sans text-sm transition-colors">
+                    <option value="Basic (₹7,000)">Basic — ₹7,000 (1 Page)</option>
+                    <option value="Intermediate (₹12,000)" selected>Intermediate — ₹12,000 (4-5 Pages)</option>
+                    <option value="Advanced (₹15,000)">Advanced — ₹15,000 (Full 3D / Experience)</option>
+                    <option value="Custom Enterprise (₹12K - ₹1.2L)">Custom Enterprise — ₹12K - ₹1.2L</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="targetDate" class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Target Launch Date</label>
+                  <div class="relative flex items-center">
+                    <input type="date" id="targetDate" class="w-full rounded-xl bg-void border border-borderline pl-4 pr-11 py-3.5 text-slate-300 focus:outline-none focus:border-goldbeam font-sans text-sm transition-colors">
+                    <button type="button" id="calendarPickerTrigger" aria-label="Open Calendar" class="absolute right-3 text-slate-400 hover:text-goldbeam cursor-pointer">
+                      <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label for="projectDetails" class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Tell Us About Your Website Idea</label>
+                <textarea id="projectDetails" rows="4" placeholder="Briefly describe what your business does and what kind of pages you need..." class="w-full rounded-xl bg-void border border-borderline px-4 py-3.5 text-white focus:outline-none focus:border-goldbeam font-sans text-sm transition-colors resize-none"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3.5 pt-2">
+                <button type="button" id="btnWhatsAppSubmit" class="flex-1 py-4 rounded-xl bg-emeraldaccent text-void font-display font-bold uppercase tracking-wider text-xs hover:bg-white transition-all flex items-center justify-center gap-2 shadow-lg min-h-[44px] cursor-pointer">
+                  <i data-lucide="message-square" class="w-4 h-4"></i>
+                  <span>Send On WhatsApp (Instant)</span>
+                </button>
+                <button type="submit" id="btnDirectSubmit" class="flex-1 py-4 rounded-xl bg-goldbeam text-void font-display font-bold uppercase tracking-wider text-xs hover:bg-white transition-all flex items-center justify-center gap-2 shadow-lg min-h-[44px] cursor-pointer">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span>Submit & Route to WhatsApp</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-borderline py-8 md:py-10 px-4 md:fluid-padding-pc font-mono text-xs text-slate-400 bg-void">
+    <div class="max-w-[1700px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-goldbeam shrink-0"></span>
+        <span class="text-white font-display font-bold uppercase tracking-wider">LEVI’S WEBS</span>
+        <span>// Web Design Studio — Erode, Tamil Nadu</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="https://instagram.com/levi.web_dev" target="_blank" rel="noopener noreferrer" class="hover:text-goldbeam transition-colors flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          <span>@levi.web_dev</span>
+        </a>
+        <a href="https://wa.me/918438615726" target="_blank" rel="noopener noreferrer" class="hover:text-emeraldaccent transition-colors">+91 84386 15726</a>
+        <a href="#home" class="hover:text-white transition-colors">Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- POPUP CONFIRMATION MODAL -->
+  <div id="bookingModalPopup" class="fixed inset-0 z-50 bg-void/90 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-obsidian border border-goldbeam rounded-2xl max-w-sm w-full p-6 relative shadow-2xl transform scale-95 transition-transform duration-300" id="modalPopupCard">
+      <button id="modalPopupCloseBtn" aria-label="Close Popup" class="absolute top-3 right-3 w-8 h-8 rounded-lg flex items-center justify-center border border-borderline text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-goldbeam/10 border border-goldbeam/30 rounded-full text-goldbeam font-mono text-[9px] font-bold uppercase mb-3">
+        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+        <span>Routing to WhatsApp</span>
+      </div>
+
+      <h3 class="font-display font-black text-lg uppercase text-white mb-1">Inquiry Prepared</h3>
+      <p class="font-sans text-xs text-slate-300 mb-4 leading-relaxed">
+        Your brief has been compiled and is opening in WhatsApp with Levi's Webs (+91 84386 15726). A calendar invite (<code class="text-goldbeam font-mono">.ics</code>) has been downloaded to save your slot.
+      </p>
+
+      <div class="p-3 rounded-xl bg-void border border-borderline font-mono text-[11px] space-y-1 mb-4 text-slate-300">
+        <div><span class="text-slate-400">CLIENT:</span> <span id="outClientName" class="text-white font-bold">-</span></div>
+        <div><span class="text-slate-400">PACKAGE:</span> <span id="outClientTier" class="text-goldbeam font-bold">-</span></div>
+        <div><span class="text-slate-400">DATE:</span> <span id="outClientDate" class="text-white font-bold">-</span></div>
+      </div>
+
+      <button id="modalPopupDismiss" class="w-full py-3 rounded-xl bg-goldbeam text-void font-display font-bold uppercase tracking-wider text-xs hover:bg-white transition-all shadow-md min-h-[44px]">
+        Continue to WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- RUNTIME LOGIC -->
+  <script>
+    lucide.createIcons();
+
+    // -------------------------------------------------------------
+    // THREE.JS 3D GLOBE RIG
+    // -------------------------------------------------------------
+    const canvasHost = document.getElementById('threejs-canvas-host');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    canvasHost.appendChild(renderer.domElement);
+
+    const globeMasterGroup = new THREE.Group();
+    scene.add(globeMasterGroup);
+
+    const sphereRadius = 2.7;
+    const sphereGeo = new THREE.SphereGeometry(sphereRadius, 36, 24);
+    const sphereWireMat = new THREE.MeshBasicMaterial({
+      color: 0xE2B859,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.28
+    });
+    const globeWireMesh = new THREE.Mesh(sphereGeo, sphereWireMat);
+    globeMasterGroup.add(globeWireMesh);
+
+    const innerCoreGeo = new THREE.SphereGeometry(sphereRadius * 0.96, 24, 24);
+    const innerCoreMat = new THREE.MeshBasicMaterial({
+      color: 0x050C18,
+      transparent: true,
+      opacity: 0.85
+    });
+    const innerCoreMesh = new THREE.Mesh(innerCoreGeo, innerCoreMat);
+    globeMasterGroup.add(innerCoreMesh);
+
+    const nodeCount = 90;
+    const nodeGeo = new THREE.BufferGeometry();
+    const nodePositions = new Float32Array(nodeCount * 3);
+
+    for (let i = 0; i < nodeCount; i++) {
+      const phi = Math.acos(-1 + (2 * i) / nodeCount);
+      const theta = Math.sqrt(nodeCount * Math.PI) * phi;
+      const r = sphereRadius * 1.015;
+
+      nodePositions[i * 3] = r * Math.cos(theta) * Math.sin(phi);
+      nodePositions[i * 3 + 1] = r * Math.sin(theta) * Math.sin(phi);
+      nodePositions[i * 3 + 2] = r * Math.cos(phi);
+    }
+
+    nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
+    const nodeMat = new THREE.PointsMaterial({
+      color: 0x10B981,
+      size: 0.08,
+      transparent: true,
+      opacity: 0.95
+    });
+    const networkNodes = new THREE.Points(nodeGeo, nodeMat);
+    globeMasterGroup.add(networkNodes);
+
+    const orbitRingGeo = new THREE.RingGeometry(sphereRadius * 1.25, sphereRadius * 1.28, 64);
+    const orbitRingMat = new THREE.MeshBasicMaterial({
+      color: 0x38BDF8,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.35
+    });
+    const orbitRingMesh = new THREE.Mesh(orbitRingGeo, orbitRingMat);
+    orbitRingMesh.rotation.x = Math.PI / 2.3;
+    globeMasterGroup.add(orbitRingMesh);
+
+    function updateGlobeLayout() {
+      if (window.innerWidth < 768) {
+        globeMasterGroup.position.set(0.6, 0.9, -2.9);
+        globeMasterGroup.scale.set(0.85, 0.85, 0.85);
+      } else {
+        globeMasterGroup.position.set(2.0, 0.1, -1.5);
+        globeMasterGroup.scale.set(1.0, 1.0, 1.0);
+      }
+    }
+    updateGlobeLayout();
+    camera.position.z = 6.2;
+
+    let mouseCoordX = 0;
+    let mouseCoordY = 0;
+    let halfWinX = window.innerWidth / 2;
+    let halfWinY = window.innerHeight / 2;
+    let currentScroll = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseCoordX = (e.clientX - halfWinX) * 0.0006;
+      mouseCoordY = (e.clientY - halfWinY) * 0.0006;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        mouseCoordX = (e.touches[0].clientX - halfWinX) * 0.0003;
+        mouseCoordY = (e.touches[0].clientY - halfWinY) * 0.0003;
+      }
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      currentScroll = window.scrollY;
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      halfWinX = window.innerWidth / 2;
+      halfWinY = window.innerHeight / 2;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      updateGlobeLayout();
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      globeWireMesh.rotation.y += 0.003;
+      networkNodes.rotation.y += 0.003;
+      orbitRingMesh.rotation.z += 0.0018;
+
+      globeMasterGroup.rotation.y += (mouseCoordX - globeMasterGroup.rotation.y * 0.2) * 0.05;
+      globeMasterGroup.rotation.x += (mouseCoordY - globeMasterGroup.rotation.x * 0.2) * 0.05;
+
+      camera.position.y = -currentScroll * 0.0015;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // -------------------------------------------------------------
+    // WEBAUDIO IMMEDIATE FEEDBACK (NO TIME DURATION COOLDOWN)
+    // -------------------------------------------------------------
+    let audioContext = null;
+    let isSoundMuted = false;
+
+    function getAudioContext() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          audioContext = new AudioCtx();
+        }
+      }
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      return audioContext;
+    }
+
+    function playTone(freq = 520) {
+      if (isSoundMuted) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.035);
+
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.035);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.035);
+      } catch (err) {}
+    }
+
+    function toggleAudioEngine(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      isSoundMuted = !isSoundMuted;
+
+      document.querySelectorAll('.svgVolumeOn').forEach(el => {
+        if (isSoundMuted) el.classList.add('hidden');
+        else el.classList.remove('hidden');
+      });
+
+      document.querySelectorAll('.svgVolumeOff').forEach(el => {
+        if (isSoundMuted) el.classList.remove('hidden');
+        else el.classList.add('hidden');
+      });
+
+      if (!isSoundMuted) {
+        playTone(780);
+      }
+    }
+
+    const soundToggleBtnPC = document.getElementById('soundToggleBtnPC');
+    const soundToggleBtnMobile = document.getElementById('soundToggleBtnMobile');
+
+    if (soundToggleBtnPC) soundToggleBtnPC.addEventListener('click', toggleAudioEngine);
+    if (soundToggleBtnMobile) soundToggleBtnMobile.addEventListener('click', toggleAudioEngine);
+
+    document.querySelectorAll('button:not(.sound-toggle-btn), a, input, select, textarea').forEach(elem => {
+      elem.addEventListener('click', () => playTone(540));
+    });
+
+    // -------------------------------------------------------------
+    // CALENDAR ICON & INPUT SYNC
+    // -------------------------------------------------------------
+    const targetDateInput = document.getElementById('targetDate');
+    const calendarPickerTrigger = document.getElementById('calendarPickerTrigger');
+
+    if (calendarPickerTrigger && targetDateInput) {
+      calendarPickerTrigger.addEventListener('click', () => {
+        try {
+          if (targetDateInput.showPicker) {
+            targetDateInput.showPicker();
+          } else {
+            targetDateInput.focus();
+          }
+        } catch (e) {
+          targetDateInput.focus();
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // PRICING SYNC & WHATSAPP ROUTING
+    // -------------------------------------------------------------
+    const tierSelector = document.getElementById('tierSelector');
+
+    function setBookingTier(tierValue) {
+      for (let i = 0; i < tierSelector.options.length; i++) {
+        if (tierSelector.options[i].value === tierValue) {
+          tierSelector.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    const bookingLeadForm = document.getElementById('bookingLeadForm');
+    const btnWhatsAppSubmit = document.getElementById('btnWhatsAppSubmit');
+    const bookingModalPopup = document.getElementById('bookingModalPopup');
+    const modalPopupCard = document.getElementById('modalPopupCard');
+    const modalPopupCloseBtn = document.getElementById('modalPopupCloseBtn');
+    const modalPopupDismiss = document.getElementById('modalPopupDismiss');
+
+    function compileAndSendWhatsAppMessage() {
+      const name = document.getElementById('clientFullName').value.trim() || 'Client';
+      const phone = document.getElementById('clientPhone').value.trim() || 'Not provided';
+      const tier = tierSelector.value;
+      const targetLaunch = targetDateInput.value || 'Flexible';
+      const details = document.getElementById('projectDetails').value.trim() || 'Looking to discuss a new website build with Levi\'s Webs.';
+
+      const text = 
+`*NEW WEBSITE BRIEF // LEVI'S WEBS (ERODE)*
+
+*Name / Business:* ${name}
+*Phone / WhatsApp:* ${phone}
+*Selected Plan:* ${tier}
+*Desired Launch Date:* ${targetLaunch}
+
+*Project Details:*
+${details}
+
+*Referrer:* https://leviswebs.com/`;
+
+      const whatsappUrl = `https://wa.me/918438615726?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      return { name, tier, targetLaunch };
+    }
+
+    function triggerDownloadICS(name, tier) {
+      const now = new Date();
+      const callDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      callDate.setUTCHours(9, 30, 0, 0);
+      const endDate = new Date(callDate.getTime() + 40 * 60 * 1000);
+
+      const fmt = (d) => d.toISOString().replace(/-|:|\.\d+/g, '');
+
+      const ics = 
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Levis Webs Erode//Discovery Call//EN
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+UID:${Date.now()}@leviswebs.com
+DTSTAMP:${fmt(new Date())}
+DTSTART:${fmt(callDate)}
+DTEND:${fmt(endDate)}
+SUMMARY:Levi's Webs Website Consultation (${name})
+DESCRIPTION:Discovery consultation for ${tier} with Levi's Webs (Erode, Tamil Nadu). WhatsApp: +91 84386 15726.
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const dl = document.createElement('a');
+      dl.href = window.URL.createObjectURL(blob);
+      dl.setAttribute('download', `LevisWebs-Discovery-${Date.now()}.ics`);
+      document.body.appendChild(dl);
+      dl.click();
+      document.body.removeChild(dl);
+    }
+
+    function showPopupModal(name, tier, targetLaunch) {
+      document.getElementById('outClientName').textContent = name;
+      document.getElementById('outClientTier').textContent = tier;
+      document.getElementById('outClientDate').textContent = targetLaunch;
+      bookingModalPopup.classList.remove('hidden');
+      setTimeout(() => {
+        bookingModalPopup.classList.remove('opacity-0');
+        modalPopupCard.classList.remove('scale-95');
+      }, 15);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePopupModal() {
+      bookingModalPopup.classList.add('opacity-0');
+      modalPopupCard.classList.add('scale-95');
+      setTimeout(() => {
+        bookingModalPopup.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    if (btnWhatsAppSubmit) {
+      btnWhatsAppSubmit.addEventListener('click', () => {
+        const data = compileAndSendWhatsAppMessage();
+        showPopupModal(data.name, data.tier, data.targetLaunch);
+      });
+    }
+
+    if (bookingLeadForm) {
+      bookingLeadForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = compileAndSendWhatsAppMessage();
+        triggerDownloadICS(data.name, data.tier);
+        showPopupModal(data.name, data.tier, data.targetLaunch);
+      });
+    }
+
+    if (modalPopupCloseBtn) modalPopupCloseBtn.addEventListener('click', closePopupModal);
+    if (modalPopupDismiss) modalPopupDismiss.addEventListener('click', closePopupModal);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !bookingModalPopup.classList.contains('hidden')) {
+        closePopupModal();
+      }
+    });
+
+    // -------------------------------------------------------------
+    // SCROLL REVEAL
+    // -------------------------------------------------------------
+    const revealElements = document.querySelectorAll('.reveal-node');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -40px 0px', threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
